@@ -8,7 +8,15 @@ import {nanoid} from "nanoid"
 export default function App() {
     return (
         <main>
-            
+            <Editor />
+            <Sidebar />
+            <div className="no-notes">
+                <h1>You currently have no notes</h1>
+                <button>
+                    Create Note
+                </button>
+
+            </div>
         </main>
     )
 }
