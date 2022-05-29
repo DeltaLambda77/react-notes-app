@@ -20,6 +20,14 @@ export default function App() {
         setCurrentNoteId(newNote.id)
     }
 
+    function updateNote(text) {
+        setNotes(oldNotes => oldNotes.map(oldNote => {
+            return oldNote.id === currentNoteId
+                ? {...oldNote, body: text}
+                : oldNote
+        }))
+    }
+
     function findCurrentNote() {
         return notes.find(note => {
             return note.id === currentNoteId
@@ -28,15 +36,37 @@ export default function App() {
 
     return (
         <main>
-            <Editor />
-            <Sidebar />
+        {
+            notes.length > 0
+            ?
+            <Split
+                sizes={[30, 70]}
+                direction="horizontal"
+                className="split"
+            >
+                <Sidebar 
+                    notes={notes}
+                    currentNote={findCurrentNote()}
+                    setCurrentNoteId={setCurrentNoteId}
+                    newNote={createNewNote}
+                />
+                {
+                    currentNoteId && notes.length > 0 &&
+                    <Editor 
+                        currentNote={findCurrentNote()}
+                        updateNote={updateNote}
+                    />
+                }
+            </Split>
+            :   
             <div className="no-notes">
                 <h1>You currently have no notes</h1>
-                <button>
+                <button className="first-note-button" onClick={createNewNote}>
                     Create Note
                 </button>
 
             </div>
+        }
         </main>
     )
 }
