@@ -1,72 +1,57 @@
 import React from "react"
 import Editor from "./components/Editor.js"
 import Sidebar from "./components/Sidebar.js"
-import Data from "./data.js"
-import Split from "react-split"
 import {nanoid} from "nanoid"
 
 export default function App() {
-    const [notes, setNotes] = React.useState([])
-    const [currentNoteId, setCurrentNoteId] = React.useState(
-        (notes[0] && notes[0].id) || ""
-    )
+    const [notes, setNotes] = React.useState(
+        localStorage.notes ? JSON.parse(localStorage.notes) : []
+    );
+    const [activeNote, setActiveNote] = React.useState(false);
 
-    function createNewNote() {
+    React.useEffect(() => {
+        localStorage.setItem("notes", JSON.stringify(notes));
+    }, [notes])
+
+    const onAddNote = () => {
         const newNote = {
             id: nanoid(),
-            body: "# Insert note text here"
-        }
-        setNotes(prevNotes => [newNote, ...prevNotes])
-        setCurrentNoteId(newNote.id)
+            title: "Untitled Note",
+            body: "",
+            lastModified: Date.now()
+        };
+        setNotes([newNote, ...notes]);
+        setActiveNote([newNote.id]);
     }
 
-    function updateNote(text) {
-        setNotes(oldNotes => oldNotes.map(oldNote => {
-            return oldNote.id === currentNoteId
-                ? {...oldNote, body: text}
-                : oldNote
-        }))
+    const onDeleteNote = (noteId) => {
+        setNotes(notes.filter(({id}) => id !== noteId));
     }
 
-    function findCurrentNote() {
-        return notes.find(note => {
-            return note.id === currentNoteId
-        }) || notes[0]
+    const onUpdateNote = (updatedNote) => {
+        const updatedNotesArray = notes.map((note) => {
+            return note.id === updatedNote.id ? 
+                updatedNote : note
+            });
+            setNotes(updatedNotesArray);
     }
 
+    const getActiveNote = () => {
+        return notes.find(({id}) => id === activeNote);
+    }
     return (
-        <main>
-        {
-            notes.length > 0
-            ?
-            <Split
-                sizes={[30, 70]}
-                direction="horizontal"
-                className="split"
-            >
-                <Sidebar 
-                    notes={notes}
-                    currentNote={findCurrentNote()}
-                    setCurrentNoteId={setCurrentNoteId}
-                    newNote={createNewNote}
-                />
-                {
-                    currentNoteId && notes.length > 0 &&
-                    <Editor 
-                        currentNote={findCurrentNote()}
-                        updateNote={updateNote}
-                    />
-                }
-            </Split>
-            :   
-            <div className="no-notes">
-                <h1>You currently have no notes</h1>
-                <button className="first-note-button" onClick={createNewNote}>
-                    Create Note
-                </button>
-
-            </div>
-        }
-        </main>
-    )
+        <div className="App-container">
+            <Sidebar
+                notes={notes}
+                onAddNote={onAddNote}
+                onDeleteNote={onDeleteNote}
+                activeNote={activeNote}
+                setActiveNote={setActiveNote}
+            />
+            <Editor
+                activeNote={getActiveNote()}
+                onUpdateNote={onUpdateNote}
+            />
+        </div>
+    );
 }

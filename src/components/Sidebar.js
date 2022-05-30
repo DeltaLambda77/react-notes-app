@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function Sidebar(props) {
+/*export default function Sidebar(props) {
     const noteElements = props.notes.map((note, index) => (
         <div key={note.id}>
             <div
@@ -21,5 +21,40 @@ export default function Sidebar(props) {
             </div>
             {noteElements}
         </section>
+    )
+}*/
+
+export default function Sidebar({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote}) {
+    const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
+
+    return (
+        <div className="sidebar-container">
+            <div className="sidebar-header-container">
+                <h1>Notes</h1>
+                <button onClick={onAddNote}>Add Note</button>
+            </div>
+            <div className="sidebar-notes-container">
+                {sortedNotes.map(({ id, title, body, lastModified}, i) => (
+                    <div
+                        className={`sidebar-note ${id === activeNote && `active`}`}
+                        onClick={() => setActiveNote(id)}
+                    >
+                        <div className="sidebar-note-title">
+                            <strong>{title}</strong>
+                            <button onClick={(e) => onDeleteNote(id)}>Delete</button>
+                        </div>
+
+                        <p>{body && body.substr(0, 100) + "..."}</p>
+                        <small className="note-meta">
+                            Last Modified{" "}
+                            {new Date(lastModified).toLocaleDateString("en-US", {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                            })}
+                        </small>
+                    </div>   
+                ))}
+            </div>
+        </div>
     )
 }
