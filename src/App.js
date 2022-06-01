@@ -39,8 +39,9 @@ export default function App() {
     const getActiveNote = () => {
         return notes.find(({id}) => id === activeNote);
     }
+
     return (
-        <div className="App-container">
+        <div className="App">
             <Sidebar
                 notes={notes}
                 onAddNote={onAddNote}

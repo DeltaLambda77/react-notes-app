@@ -1,7 +1,7 @@
 import ReactMarkdown from "react-markdown"
 import React from "react"
 
-export default function Main({ activeNote, onUpdateNote }) {
+export default function Main({ activeNote, onUpdateNote, }) {
     const editField = (field, value) => {
         onUpdateNote({
             ...activeNote,
@@ -10,12 +10,18 @@ export default function Main({ activeNote, onUpdateNote }) {
         });
     };
 
+    function textSelection(event) {
+        const selection = window.getSelection()
+        const selectedText = selection.toString()
+        console.log(`You selected: ${selectedText}`)
+    }
+
     return (
-        <main>
+        <main className="app-main">
         {
             activeNote ? 
-                <div className="editor-container">
-                    <div className="note-editor-container">
+                <div>
+                    <div className="app-main-note-edit">
                         <input
                             type="text"
                             id="title"
@@ -29,18 +35,75 @@ export default function Main({ activeNote, onUpdateNote }) {
                             placeholder="Write your note here..."
                             value={activeNote.body}
                             onChange={(e) => editField("body", e.target.value)}
+                            onMouseUp={textSelection}
                         />
                     </div>
-                    <div className="editor-note-preview-container">
+                    <div className="button-container">
+                        <button
+                            className="header-button"
+                            
+                        >
+                            <img> </img>
+                        </button>
+                        <button
+                            className="italics-button"
+                            
+                        >
+                            <img> </img>
+                        </button>
+                        <button
+                            className="bold-button"
+                            
+                        >
+                            <img> </img>
+                        </button>
+                        <button
+                            className="code-span-button"
+                            
+                        >
+                            <img> </img>
+                        </button>
+                        <button
+                            className="url-button"
+                            
+                        >
+                            <img> </img>
+                        </button>
+                        <button
+                            className="img-button"
+                            
+                        >
+                            <img> </img>
+                        </button>
+                        <button
+                            className="indent-button"
+                            
+                        >
+                            <img> </img>
+                        </button>
+                        <button
+                            className="bullet-button"
+                            
+                        >
+                            <img> </img>
+                        </button>
+                        <button
+                            className="numbered-bullet-button"
+                            
+                        >
+                            <img> </img>
+                        </button>
+                    </div>
+                    <div className="app-main-note-preview">
                         <h1 className="preview-title">{activeNote.title}</h1>
-                        <ReactMarkdown className="markdown-preview-container">
+                        <ReactMarkdown className="markdown-preview">
                             {activeNote.body}
                         </ReactMarkdown>
                     </div>
                 </div>
             :
                 <div className="no-active-note">
-                    No active Note
+                    No Active Note
                 </div>
 
         }
