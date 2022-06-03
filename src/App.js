@@ -40,6 +40,7 @@ export default function App() {
         return notes.find(({id}) => id === activeNote);
     }
 
+    
     return (
         <div className="App">
             <Sidebar
