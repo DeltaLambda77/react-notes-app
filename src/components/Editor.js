@@ -69,70 +69,72 @@ export default function Main({ activeNote, onUpdateNote }) {
                             onChange={(e) => editField("title", e.target.value)}
                             autoFocus
                         />
+                         <div className="button-container">
+                            <div className="left-button-container">
+                                <button
+                                    className="header-button"
+                                    onClick={wrapHeader}
+                                >
+                                    <img src={require("../components/images/heading.png")} alt="header icon"/>
+                                </button>
+                                <button
+                                    className="italics-button"
+                                    onClick={wrapItalics}
+                                >
+                                    <img src={require("../components/images/italic-font.png")} alt="italics icon"/>
+                                </button>
+                                <button
+                                    className="bold-button"
+                                    onClick={wrapBold}
+                                >
+                                    <img src={require("../components/images/bold.png")} alt="bold icon"/>
+                                </button>
+                                <button
+                                    className="code-span-button"
+                                    onClick={wrapSpan}
+                                >
+                                    <img src={require("../components/images/programming-code-signs.png")} alt="code span icon"/>
+                                </button>
+                            </div>
+                            <div className="right-button-container">
+                                <button
+                                    className="url-button"
+                                    onClick={wrapURL}
+                                >
+                                    <img src={require("../components/images/url.png")} alt="url icon"/>
+                                </button>
+                                <button
+                                    className="img-button"
+                                    onClick={wrapIMG}
+                                >
+                                    <img src={require("../components/images/photo.png")} alt="img icon"/>
+                                </button>
+                                <button
+                                    className="indent-button"
+                                    onClick={wrapIndent}
+                                >
+                                    <img src={require("../components/images/indent.png")} alt="indent icon"/>
+                                </button>
+                                <button
+                                    className="bullet-button"
+                                    onClick={wrapBullets}
+                                >
+                                    <img src={require("../components/images/menu.png")} alt="bullet icon"/>
+                                </button>
+                                <button
+                                    className="numbered-bullet-button"
+                                    onClick={wrapNumBullets}
+                                >
+                                    <img src={require("../components/images/list.png")} alt="numbered bullet icon"/>
+                                </button>
+                            </div>
+                        </div> 
                         <textarea
                             id="body"
                             placeholder="Write your note here..."
                             value={activeNote.body}
                             onChange={(e) => editField("body", e.target.value)}
-                        />
-                        
-                        <div className="button-container">
-                            <button
-                                className="header-button"
-                                onClick={wrapHeader}
-                            >
-                                <img src={require("../components/images/heading.png")} alt="header icon"/>
-                            </button>
-                            <button
-                                className="italics-button"
-                                onClick={wrapItalics}
-                            >
-                                <img src={require("../components/images/italic-font.png")} alt="italics icon"/>
-                            </button>
-                            <button
-                                className="bold-button"
-                                onClick={wrapBold}
-                            >
-                                <img src={require("../components/images/bold.png")} alt="bold icon"/>
-                            </button>
-                            <button
-                                className="code-span-button"
-                                onClick={wrapSpan}
-                            >
-                                <img src={require("../components/images/programming-code-signs.png")} alt="code span icon"/>
-                            </button>
-                            <button
-                                className="url-button"
-                                onClick={wrapURL}
-                            >
-                                <img src={require("../components/images/url.png")} alt="url icon"/>
-                            </button>
-                            <button
-                                className="img-button"
-                                onClick={wrapIMG}
-                            >
-                                <img src={require("../components/images/photo.png")} alt="img icon"/>
-                            </button>
-                            <button
-                                className="indent-button"
-                                onClick={wrapIndent}
-                            >
-                                <img src={require("../components/images/indent.png")} alt="indent icon"/>
-                            </button>
-                            <button
-                                className="bullet-button"
-                                onClick={wrapBullets}
-                            >
-                                <img src={require("../components/images/menu.png")} alt="bullet icon"/>
-                            </button>
-                            <button
-                                className="numbered-bullet-button"
-                                onClick={wrapNumBullets}
-                            >
-                                <img src={require("../components/images/list.png")} alt="numbered bullet icon"/>
-                            </button>
-                        </div> 
-                        
+                        />    
                     </div>
                     <div className="app-main-note-preview">
                         <h1 className="preview-title">{activeNote.title}</h1>

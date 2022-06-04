@@ -142,3 +142,44 @@
     font-size: 1rem;
     line-height: 2rem;
   }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+  }
+
+  .left-button-container {
+    padding-left: 20px;
+  }
+
+  .right-button-container {
+    padding-right: 20px;
+  }
+
+  .left-button-container button {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .right-button-container button {
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+
+  .button-container button {
+    height: 25px;
+    width: 25px;
+    padding: 1px;
+    border: 2px solid rgb(70, 69, 69);
+    border-radius: 5px;
+  }
+
+  .button-container button:active {
+    transform:scale(0.90);
+  }
+
+  .button-container button img {
+    object-fit: contain;
+    width: 90%;
+  }
